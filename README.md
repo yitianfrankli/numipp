@@ -45,3 +45,247 @@ $$
 
 where $\widehat{\theta} _{(t,s)}$ is $\widehat{\theta}$ computed without the observations from the $t$-th and $s$-th time periods. 
 
+## Discussion
+
+It is easy to see that $\widehat{\theta} _{1}^{\mathrm{jack}}$ reduces the incidental parameter bias of $\widehat{\theta}$. Recall that, as $n\to\infty$ with $T$ fixed, we have $\widehat{\theta}\overset{p}{\to}\theta _{T}$. Here, under suitable regularity conditions, $\theta _{T}$ can be expanded as
+
+$$
+\begin{align}
+\theta _{T} & =\theta _{0}+\frac{B _{1}}{T}+\frac{B _{2}}{T^{2}}+\ldots+\frac{B _{k}}{T^{k}}+o(T^{-k})\qquad\textrm{as }T\to\infty, \qquad(1)
+\end{align}
+$$
+
+where $B _{1},\ldots,B _{k}$ are constants (i.e., not depending on $T$) and $k$ is a positive integer. As $n\to\infty$, we have $\widehat{\theta} _{(t)}\overset{p}{\to}\theta _{T-1}$ and, therefore, $\widehat{\theta} _{1}^{\mathrm{jack}}\overset{p}{\to}\theta _{T}^{\mathrm{jack}}$ where 
+
+$$
+\begin{align*}
+\theta _{T}^{\mathrm{jack}} & =T\theta _{T}-(T-1)\theta _{T-1}\\
+ & =\theta _{0}+T\left(\frac{B _{1}}{T}+\frac{B _{2}}{T^{2}}+\ldots+\frac{B _{k}}{T^{k}}+o(T^{-k})\right)\\
+ & \qquad-(T-1)\left(\frac{B _{1}}{T-1}+\frac{B _{2}}{(T-1)^{2}}+\ldots+\frac{B _{k}}{(T-1)^{k}}+o((T-1)^{-k})\right)\\
+ & =\theta _{0}+\frac{B _{2}}{T^{2}}+o(T^{-2}),
+\end{align*}
+$$
+
+provided that $k\ge2$. Hence the delete-one jackknife eliminates the bias term $B _{1}/T$.
+
+For $\widehat{\theta} _{2}^{\mathrm{jack}},$ it can be shown that, as $n\to\infty$ with $T$ fixed, $\widehat{\theta} _{2}^{\mathrm{jack}}\overset{\mathrm{p}}{\to}\theta _{0}+O(T^{-3})$, that is, the second-order jackknife eliminates the terms $B _{1}/T$ and $B _{2}/T^{2}$ from Eq(1). 
+
+# Nonparametric bootstrap
+
+Bootstrap can be used to correct the IPP bias as well. The application of parametric bootstrap on IPP is discussed in  Pace and Salvan (2006) and Kim and Sun (2016). Here, I introduce using nonparametric bootstrap. 
+
+Let $F _{0}$ denote the true distribution of $z$, given $\alpha _{0}=(\alpha _{1,0},\ldots,\alpha _{n,0})$, i.e., $z\sim F _{0}$ and $\mathbb{E} _{F _{0}}$ denote the expectations under $F _{0}$. Let $\widehat{F}(z)$ be the empirical distribution defined as follows by $z$. For $z^{\*}\sim\widehat{F}(z)$, $z^{\*}$ has the same dimension, $T\times n$, as $z$, and $z _{it}^{\*}$ is independent across $i$ and independent and identically distributed
+across $t$ with
+
+$$
+\mathrm{Pr} _{\widehat{F}(z)}[z _{it}^{\*}=z _{is}]=\frac{1}{T}\qquad(i=1,\ldots,n;t,s=1,\ldots,T).
+$$
+
+That is, sampling from $\widehat{F}(z)$ amounts, for each $i$, to resampling with replacement from the elements of $z _{i}$ to form $z _{i}^{\*}:=(z _{i1}^{\*},\ldots,z _{iT}^{\*})'$, and then $z^{\*}:=(z _{1}^{\*},\ldots,z _{n}^{\*})$. Note that this notation comprises nested bootstrap sampling: if $z^{\*}$ is a bootstrap sample (i.e., drawn from $\widehat{F}(z)$), then drawing from $\widehat{F}(z^{\*})$ gives a nested bootstrap sample, say $z^{\*\*}$, and so on.
+
+The bias of $\widehat{\theta}$ is 
+
+$$
+\begin{align*}
+\mathrm{bias}(\widehat{\theta}) & =\mathbb{E} _{F _{0}}[\widehat{\theta}(z)-\theta _{0}],
+\end{align*}
+$$
+
+where we write $\widehat{\theta}$ as $\widehat{\theta}(z)$ to indicate that the estimator is based on the data $z$. By the bootstrap principle, on replacing $F _{0}$ with $\widehat{F}(z)$ and $z$ with $z^{\*}\sim\widehat{F}(z)$, we obtain the ideal first-order bootstrap estimate of the bias as 
+
+$$
+\begin{align*}
+\widehat{\mathrm{bias}}(\widehat{\theta}) & =\mathbb{E} _{\widehat{F}(z)}[\widehat{\theta}(z^{\*})-\widehat{\theta}(z)]\\
+ & =\mathbb{E} _{\widehat{F}(z)}[\widehat{\theta}(z^{\*})]-\widehat{\theta}.
+\end{align*}
+$$
+
+Hence 
+
+$$
+\begin{align*}
+\widehat{\theta} _{1}^{\mathrm{boot}} & =\widehat{\theta}-\widehat{\mathrm{bias}}(\widehat{\theta})\\
+ & =2\widehat{\theta}-\mathbb{E} _{\widehat{F}(z)}[\widehat{\theta}(z^{\*})]
+\end{align*}
+$$
+
+is an ideal first-order bootstrap bias-corrected estimator of $\theta _{0}$.
+
+## Higher order correction
+
+The bias of $\widehat{\theta} _{1}^{\mathrm{boot}}$ is 
+
+$$
+\begin{align*}
+\mathrm{bias}(\widehat{\theta} _{1}^{\mathrm{boot}}) & =\mathbb{E} _{F _{0}}[\widehat{\theta} _{1}^{\mathrm{boot}}(z)-\theta _{0}]\\
+ & =\mathbb{E} _{F _{0}}\big[2\widehat{\theta}(z)-\mathbb{E} _{\widehat{F}(z)}[\widehat{\theta}(z^{\*})]-\theta _{0}\big].
+\end{align*}
+$$
+
+Applying the bootstrap principle again, we replace $F _{0}$ with $\widehat{F}\left(z\right)$, $\widehat{F}\left(z\right)$ with $\widehat{F}\left(z^{\*}\right)$, $z$ with $z^{\*}\sim\widehat{F}\left(z\right)$, and $z^{\*}$ with $z^{\*\*}\sim\widehat{F}\left(z^{\*}\right)$ to obtain the ideal second-order bootstrap estimate of the bias as 
+
+$$
+\begin{align*}
+\widehat{\mathrm{bias}}(\widehat{\theta} _{1}^{\mathrm{boot}}) & =\mathbb{E} _{\widehat{F}(z)}\big[2\widehat{\theta}(z^{\*})-\mathbb{E} _{\widehat{F}(z^{\*})}[\widehat{\theta}(z^{\*\*})]-\widehat{\theta}(z)\big]\\
+ & =\mathbb{E} _{\widehat{F}(z)}\big[2\widehat{\theta}(z^{\*})-\mathbb{E} _{\widehat{F}(z^{\*})}[\widehat{\theta}(z^{\*\*})]\big]-\widehat{\theta}.
+\end{align*}
+$$
+
+Hence 
+
+$$
+\begin{align*}
+\widehat{\theta} _{2}^{\mathrm{boot}} & =\widehat{\theta} _{1}^{\mathrm{boot}}-\widehat{\mathrm{bias}}(\widehat{\theta} _{1}^{\mathrm{boot}})\\
+ & =3\widehat{\theta}-3\mathbb{E} _{\widehat{F}(z)}[\widehat{\theta}(z^{\*})]+\mathbb{E} _{\widehat{F}(z)}\mathbb{E} _{\widehat{F}(z^{\*})}[\widehat{\theta}(z^{\*\*})]
+\end{align*}
+$$
+
+is an ideal second-order bootstrap bias-corrected estimator of $\theta _{0}$.
+
+For higher order corrections, let $z^{\*(0)}=z$ and, for $b=0,1,2,\dots$, define $z^{\*(b+1)}\sim\widehat{F}(z^{\*(b)})$ recursively, so that $z^{\*(1)}=z^{\*}$, $z^{\*(2)}=z^{\*\*}$, and so on. It is easy to show that the $K$-th order ideal bootstrap bias corrections are  
+
+$$
+\begin{align*}
+\widehat{\theta} _{K}^{\mathrm{boot}} & =(K+1)\widehat{\theta}-\sum _{k=2}^{K+1}(-1)^{k}\binom{K+1}{k}\mathbb{E} _{\widehat{F}(z)}\mathbb{E} _{\widehat{F}(z^{\*})}\cdots\mathbb{E} _{\widehat{F}(z^{\*(k-1)})}[\widehat{\theta}(z^{\*(k-1)})].
+\end{align*}
+$$
+
+## Bootstrap simulations
+
+Unlike the jackknife, for which there are closed-form expressions (see also the expression below for the second-order jackknife), the bootstrap bias corrections are usually not available in closed form. Except in very simple cases, the expectations have to be computed by simulation. This involves the following steps to draw nested bootstrap samples, all of which are of the same dimension, $T\times n$, as the original data set $z$. 
+
+- Draw $B$ bootstrap samples from $\widehat{F}(z)$ as described in the beginning of this section and denote these as $z _{b _{1}}^{\*}$, $b _{1}=1,\dots,B$.
+- For each $z _{b _{1}}^{\*}$, draw $B$ bootstrap samples from $\widehat{F}(z _{b _{1}}^{\*})$ and denote these as $z _{b _{1}b _{2}}^{\*(2)}$, $b _{2}=1,\dots,B$.
+- Iterate this procedure to form further bootstrap samples $z _{b _{1}b _{2}b _{3}}^{\*(3)},\ldots,z _{b _{1}b _{2}b _{3}\cdots b _{K}}^{\*(K)}$, where $b _{j}=1,\ldots,B$ for each $j=1,\ldots,K$.
+
+
+Now we can approximate $\widehat{\theta} _{K}^{\mathrm{boot}}$ using 
+
+$$
+\begin{align*}
+\widehat{\theta} _{K}^{\mathrm{boot}} & \approx(K+1)\widehat{\theta}(z)-\sum _{k=2}^{K+1}\binom{K+1}{k}(-1)^{k}\frac{1}{B^{k-1}}\sum _{b _{1}=1}^{B}\sum _{b _{2}=1}^{B}\cdots\sum _{b _{k-1}=1}^{B}\widehat{\theta}(z _{b _{1}b _{2}\cdots b _{k-1}}^{\*(k-1)}).
+\end{align*}
+$$
+
+##  Discussion
+
+For the first order correction, because the bootstrap estimates the bias with relative error $O(T^{-1})$, the bootstrap can be thought of as eliminating $B _{1}/T$. At the same time, the bootstrap also modifies the higher-order terms in the expansion, but without modifying their order of magnitude. Thus, the bootstrap reduces the bias from $O(T^{-1})$ (the bias of $\widehat{\theta}$) down to $O(T^{-2})$ (the bias of $\widehat{\theta} _{1}^{\mathrm{boot}}$). Similar reasoning applies to higher-order bootstrap correction.
+
+# Examples
+
+Here we discuss some models where an incidental parameter problem occurs, and what the jackknife and nonparametric bootstrap deliver in terms of bias reduction.
+
+## Logit model
+
+The fixed-effect panel logit model is a well-known example of a parametric model that suffers from an incidental parameter problem. Let $z _{it}=(y _{it},x _{it})$, where $y _{it}$ is a binary outcome variable and $x _{it}$ is a vector
+of exogenous regressors. The model specifies  
+
+$$
+\begin{align*}
+\Pr[y _{it}=1|x _{it}]=\Lambda(\alpha _{i0}+x' _{it}\beta _{0})
+\end{align*}
+$$
+
+where $\Lambda(w)=(1-e^{-w})^{-1}$ is the standard logistic distribution function. Hence the probability mass function is 
+
+$$
+\begin{align*}
+f(y _{it}|x _{it};\beta,\alpha _{i})=[\Lambda(\alpha _{i}+x' _{it}\beta)]^{y _{it}}[1-\Lambda(\alpha _{i}+x' _{it}\beta)]^{1-y _{it}},\qquad y _{it}\in\{0,1\},
+\end{align*}
+$$
+
+where $\theta=\beta$ is the parameter of interest and the log-likelihood function, normalized by the number of observations, is 
+
+$$
+\begin{align*}
+l(\beta,\alpha;z) & =\frac{1}{nT}\sum _{i=1}^{n}\sum _{t=1}^{T}\log f(y _{it}|x _{it};\beta,\alpha _{i})\\
+ & =\frac{1}{nT}\sum _{i=1}^{n}\sum _{t=1}^{T}\big[y _{it}\log\Lambda(\alpha _{i}+x _{it}\beta)+(1-y _{it})\log(1-\Lambda(\alpha _{i}+x _{it}\beta))\big].
+\end{align*}
+$$
+
+The maximum likelihood estimator of $\beta _{0}$ is inconsistent as $n\to\infty$ with $T$ fixed.(In the logit model, there is a sufficient statistic for $\alpha _{i}$ and conditioning on it yields a conditional likelihood that resolves the incidental parameter problem. However, the logit model is the only binary-choice model where such a solution exists. Our interest here is in using the logit model as a test case for bootstrap corrections, which have a much wider scope of application than conditional likelihood.
+
+The profile score function is 
+
+$$
+\begin{align*}
+s(\beta,\widehat{\alpha}(\beta;z);z) & =\frac{1}{nT}\sum _{i=1}^{n}\sum _{t=1}^{T}\big(y _{it}-\Lambda(\widehat{\alpha} _{i}(\beta;z _{i})+x' _{it}\beta)\big)x _{it},
+\end{align*}
+$$
+
+where $\widehat{\alpha} _{i}(\beta;z _{i})$ solves 
+
+$$
+\begin{align*}
+\frac{1}{T}\sum _{t=1}^{T}\big(y _{it}-\Lambda(\alpha _{i}+x' _{it}\beta)\big)=0
+\end{align*}
+$$
+
+for $\alpha _{i}$. Unfortunately, the solution $\widehat{\alpha} _{i}(\beta;z _{i})$ cannot be obtained in closed form from the latter equation. We shall, therefore, focus on the special case where $x _{it}\in\{0,1\}$ (i.e., $x _{it}$ is a binary scalar) because then $\widehat{\alpha} _{i}(\beta;z _{i})$ can be obtained in closed form. With binary $x _{it}$, the log-likelihood function simplifies to 
+
+$$
+\begin{align*}
+l(\beta,\alpha;z) & =\frac{1}{nT}\sum _{i=1}^{n}(z _{i,10}\log\Lambda(\alpha _{i})+z _{i,00}\log\Lambda(-\alpha _{i})+z _{i,11}\log\Lambda(\alpha _{i}+\beta)\\
+ & \qquad\qquad\quad+z _{i,01}\log\Lambda(-\alpha _{i}-\beta))+c,
+\end{align*}
+$$
+
+where $c$ is an inessential constant and 
+
+$$
+\begin{align*}
+z _{i,yx}=\sum _{t=1}^{T} 1(Y _{it}=y,X _{it}=x)\qquad{\textrm{ for }}y,x\in\{0,1\}.
+\end{align*}
+$$
+
+Now $\widehat{\alpha} _{i}(\beta;z _{i})$ is given by the following lemma.
+
+**Lemmma 1.** Let $x _{it}\in\{0,1\}$ for all $i$ and $t$. Then 
+
+$$
+\begin{align*}
+\widehat{\alpha} _{i}(\beta;z _{i})=\log\frac{-b+\sqrt{b^{2}-4ac}}{2a}
+\end{align*}
+$$
+
+where 
+
+$$
+\begin{align*}
+a & =e^{\beta}(z _{i,00}+z _{i,01}),\\
+b & =e^{\beta}z _{i,01}-e^{\beta}z _{i,10}+z _{i,00}-z _{i,11},\\
+c & =-z _{i,10}-z _{i,11}.
+\end{align*}
+$$
+
+The proof of the lemma is given in the appendix.
+
+Now the profile score function simplifies to 
+
+$$
+\begin{align*}
+s(\beta,\widehat{\alpha}(\beta;z);z) & =\frac{1}{nT}\sum _{i=1}^{n}\left(\frac{z _{i,11}-z _{i,01}e^{\widehat{\alpha} _{i}(\beta;z _{i})+\beta}}{1+e^{\widehat{\alpha} _{i}(\beta;z _{i})+\beta}}\right)
+\end{align*}
+$$
+
+and it is easy to solve $s(\beta,\widehat{\alpha}(\beta;z);z)=0$ numerically for $\beta$, and similarly for solving the bias-corrected profile score equations.
+
+We evaluated the performance of the bootstrap numerically in a small-scale setup with $n=10,000$ (so as to get close to the probability limits as $n\to\infty$), $T\in\{3,4,5,10\}$, and $B=10$. We generated the binary variables $x _{it}$ and $y _{it}$ according to 
+
+$$
+\begin{align*}
+ & \Pr[x _{it}=1]=1/2,\\
+ & \Pr[y _{it}=1|x _{it}]=\Lambda(\alpha _{i0}+x _{it}\beta _{0}),
+\end{align*}
+$$
+
+with $\beta _{0}=1$ and $\alpha _{i0}\sim\mathcal{N}\left(-0.5,1\right)$. Table 1 reports the means and the standard deviations of the estimators, estimated from $1,000$ Monte Carlo replications. Clearly, the bootstrap performs reasonably well as a bias correction method, and is on par with the jackknife. The bias corrections have the effect of shrinking the maximum likelihood estimate and, as a result, also tend to reduce the standard deviation of the estimator, most prominently for the first-order bias corrections and when $T$ is very small.
+
+| $\beta _{0}=1$ | | $T=3$ | $T=4$ | $T=5$ | $T=10$ |
+| --- | --- | --- | --- | --- | --- |
+| $\widehat{\beta}$                    | mean<br>std | $1.5272$<br>$0.0534$ | $1.3509$<br>$0.0371$ | $1.2608$<br>$0.0294$ | $1.1152$<br>$0.0176$ |
+| $\widehat{\beta} _{1}^{\text{jack}}$ | mean<br>std | $0.5810$<br>$0.0322$ | $0.8178$<br>$0.0219$ | $0.9049$<br>$0.0203$ | $0.9845$<br>$0.0154$ |
+| $\widehat{\beta} _{2}^{\text{jack}}$ | mean<br>std | NA<br>NA             | $1.0534$<br>$0.0245$ | $1.0362$<br>$0.0236$ | $1.0027$<br>$0.0157$ |
+| $\widehat{\beta} _{1}^{\text{boot}}$ | mean<br>std | $1.0998$<br>$0.0440$ | $0.9916$<br>$0.0307$ | $0.9758$<br>$0.0254$ | $0.9890$<br>$0.0165$ |
+| $\widehat{\beta} _{2}^{\text{boot}}$ | mean<br>std | $0.8706$<br>$0.0504$ | $0.8925$<br>$0.0357$ | $0.9396$<br>$0.0304$ | $0.9935$<br>$0.0191$ |
+| $\widehat{\beta} _{3}^{\text{boot}}$ | mean<br>std | $0.7640$<br>$0.0671$ | $0.8957$<br>$0.0468$ | $0.9630$<br>$0.0391$ | $0.9988$<br>$0.0232$ |
