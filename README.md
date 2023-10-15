@@ -27,7 +27,7 @@ Hahn and Newey (2004) define the ``delete-one'' jackknife estimator defined as
 
 $$
 \begin{align*}
-\widehat{\theta} _{1}^{\mathrm{jack}} & =T\widehat{\theta}-(T-1)\frac{\sum _{t}\widehat{\theta} _{(t)}}{T},
+\widehat{\theta} _{1}^{\mathrm{jack}} & =T\widehat{\theta}-\frac{T-1}{T}\sum _{t=1}^{T}\widehat{\theta} _{(t)},
 \end{align*}
 $$
 
@@ -39,7 +39,7 @@ This method can also be applied to yield higher-order bias corrections, although
 
 $$
 \begin{align*}
-\widehat{\theta} _{2}^{\mathrm{jack}} & =\frac{1}{2}T^{2}\widehat{\theta}-(T-1)^{2}\frac{\sum _{t=1}^{T}\widehat{\theta} _{(t)}}{T}+\frac{1}{2}(T-2)^{2}\frac{\sum _{t=1}^{T}\sum _{s=t+1}^{T}\widehat{\theta} _{(t,s)}}{T(T-1)/2},
+\widehat{\theta} _{2}^{\mathrm{jack}} & =\frac{1}{2}T^{2}\widehat{\theta}-\frac{(T-1)^{2}}{T}\sum _{t=1}^{T}\widehat{\theta} _{(t)}+\frac{(T-2)^{2}}{T(T-1)}\sum _{t=1}^{T}\sum _{s=t+1}^{T}\widehat{\theta} _{(t,s)},
 \end{align*}
 $$
 
