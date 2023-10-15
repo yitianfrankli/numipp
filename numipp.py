@@ -4,8 +4,6 @@
 Created on Fri Oct 13 16:13:09 2023
 
 @author: yitianli
-
-IPP-GMM code with OOP
 """
 
 import numpy as np
