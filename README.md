@@ -386,16 +386,16 @@ $$
 since $e^{\alpha _{i}}>0$ rules out the solution with the negative root. Taking the logarithm gives $\widehat{\alpha} _{i}(\beta;z _{i})$.
 
 # Reference
-Andersen, Erling Bernhard (1970). “Asymptotic Properties of Conditional Maximum-Likelihood Estima- tors”. In: Journal of the Royal Statistical Society. Series B (Methodological) 32.2, pp. 283–301.
+Andersen, Erling Bernhard (1970). “Asymptotic Properties of Conditional Maximum-Likelihood Estimators”. In: Journal of the Royal Statistical Society. Series B (Methodological) 32.2, pp. 283–301.
 
 Chamberlain, Gary (2010). “Binary Response Models for Panel Data: Identification and Information”. In: Econometrica 78.1, pp. 159–168.
 
-Fernández-Val, Iván and Martin Weidner (2018). “Fixed Effects Estimation of Large-T Panel Data Mod- els”. In: Annual Review of Economics 10.1, pp. 109–138.
+Fernández-Val, Iván and Martin Weidner (2018). “Fixed Effects Estimation of Large-T Panel Data Models”. In: Annual Review of Economics 10.1, pp. 109–138.
 
 Hahn, Jinyong and Whitney Newey (2004). “Jackknife and Analytical Bias Reduction for Nonlinear Panel Models”. In: Econometrica 72.4, pp. 1295–1319.
 
 Kim, Min Seong and Yixiao Sun (2016). “Bootstrap and K-Step Bootstrap Bias Correction for Fixed Effects Estimators in Nonlinear Panel Data Models”. In: Econometric Theory 32.6, pp. 1523–1568.
 
-Neyman, J. and Elizabeth L. Scott (1948). “Consistent Estimates Based on Partially Consistent Obser- vations”. In: Econometrica 16.1, pp. 1–32.
+Neyman, J. and Elizabeth L. Scott (1948). “Consistent Estimates Based on Partially Consistent Observations”. In: Econometrica 16.1, pp. 1–32.
 
-Pace, Luigi and Alessandra Salvan (2006). “Adjustments of the Profile Likelihood from a New Perspec- tive”. In: Journal of Statistical Planning and Inference 136.10, pp. 3554–3564.
+Pace, Luigi and Alessandra Salvan (2006). “Adjustments of the Profile Likelihood from a New Perspective”. In: Journal of Statistical Planning and Inference 136.10, pp. 3554–3564.
